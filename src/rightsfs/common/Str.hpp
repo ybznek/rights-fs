@@ -1,7 +1,7 @@
 #ifndef STR_HPP
 #define STR_HPP
 #include <string.h>
-namespace zcachefs {
+namespace rightsfs {
 
 class Str {
 public:

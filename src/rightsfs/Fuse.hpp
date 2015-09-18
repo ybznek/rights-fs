@@ -4,7 +4,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include "FuseCtx.hpp"
-namespace zcachefs {
+namespace rightsfs {
 class Fuse {
 public:
   int inline main(int argc, char *argv[]) {

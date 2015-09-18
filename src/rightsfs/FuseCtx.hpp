@@ -1,7 +1,7 @@
 #ifndef FUSECTX_HPP
 #define FUSECTX_HPP
 #include <fuse.h>
-namespace zcachefs {
+namespace rightsfs {
 class Fuse;
 template <class CLS> class FuseCtx {
 public:

@@ -1,7 +1,7 @@
-#ifndef ZCACHEFSFUSE_HPP
-#define ZCACHEFSFUSE_HPP
+#ifndef RIGHTS_FS_HPP
+#define RIGHTS_FS_HPP
 #include "Fuse.hpp"
-namespace zcachefs {
+namespace rightsfs {
 class ZCache : public Fuse {
 public:
   using Ctx = FuseCtx<ZCache>;
@@ -23,4 +23,4 @@ public:
   static int getattr(const char *path, struct stat *stbuf);
 };
 }
-#endif // ZCACHEFSFUSE_HPP
+#endif // RIGHTS_FUSE_HPP

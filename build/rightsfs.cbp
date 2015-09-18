@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="rightsfs" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;CMake Files\cmake\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/data/projects/C++/rights-fs/build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/data/projects/C++/rights-fs/build/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/data/projects/C++/rights-fs/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/data/projects/C++/rights-fs/build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/data/projects/C++/rights-fs/build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="edit_cache">
+         <Option working_dir="/home/data/projects/C++/rights-fs/build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/data/projects/C++/rights-fs/build/Makefile&quot;  VERBOSE=1 edit_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/data/projects/C++/rights-fs/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/data/projects/C++/rights-fs/build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/data/projects/C++/rights-fs/build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/data/projects/C++/rights-fs/build" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/data/projects/C++/rights-fs/build/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/data/projects/C++/rights-fs/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/data/projects/C++/rights-fs/build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/data/projects/C++/rights-fs/build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rightsfs">
+         <Option output="/home/data/projects/C++/rights-fs/build/rightsfs" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/data/projects/C++/rights-fs/build" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D_FILE_OFFSET_BITS=64" />
+            <Add option="-DFUSE_USE_VERSION=28" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/5.2.0/../../../../include/c++/5.2.0" />
+            <Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/5.2.0/../../../../include/c++/5.2.0/backward" />
+            <Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/5.2.0/../../../../include/c++/5.2.0/x86_64-unknown-linux-gnu" />
+            <Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/5.2.0/include" />
+            <Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/5.2.0/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/data/projects/C++/rights-fs/build/Makefile&quot;  VERBOSE=1 rightsfs" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/data/projects/C++/rights-fs/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/data/projects/C++/rights-fs/build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/data/projects/C++/rights-fs/build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rightsfs/fast">
+         <Option output="/home/data/projects/C++/rights-fs/build/rightsfs" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/data/projects/C++/rights-fs/build" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D_FILE_OFFSET_BITS=64" />
+            <Add option="-DFUSE_USE_VERSION=28" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/5.2.0/../../../../include/c++/5.2.0" />
+            <Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/5.2.0/../../../../include/c++/5.2.0/backward" />
+            <Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/5.2.0/../../../../include/c++/5.2.0/x86_64-unknown-linux-gnu" />
+            <Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/5.2.0/include" />
+            <Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/5.2.0/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/data/projects/C++/rights-fs/build/Makefile&quot;  VERBOSE=1 rightsfs/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/data/projects/C++/rights-fs/build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/data/projects/C++/rights-fs/build/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/data/projects/C++/rights-fs/build/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/data/projects/C++/rights-fs/src/main.cpp">
+         <Option target="rightsfs"/>
+      </Unit>
+      <Unit filename="/home/data/projects/C++/rights-fs/src/rightsfs/DirectoryIterator.cpp">
+         <Option target="rightsfs"/>
+      </Unit>
+      <Unit filename="/home/data/projects/C++/rights-fs/src/rightsfs/DirectoryIterator.hpp">
+         <Option target="rightsfs"/>
+      </Unit>
+      <Unit filename="/home/data/projects/C++/rights-fs/src/rightsfs/FileStat.cpp">
+         <Option target="rightsfs"/>
+      </Unit>
+      <Unit filename="/home/data/projects/C++/rights-fs/src/rightsfs/FileStat.hpp">
+         <Option target="rightsfs"/>
+      </Unit>
+      <Unit filename="/home/data/projects/C++/rights-fs/src/rightsfs/Fuse.cpp">
+         <Option target="rightsfs"/>
+      </Unit>
+      <Unit filename="/home/data/projects/C++/rights-fs/src/rightsfs/Fuse.hpp">
+         <Option target="rightsfs"/>
+      </Unit>
+      <Unit filename="/home/data/projects/C++/rights-fs/src/rightsfs/FuseCtx.cpp">
+         <Option target="rightsfs"/>
+      </Unit>
+      <Unit filename="/home/data/projects/C++/rights-fs/src/rightsfs/FuseCtx.hpp">
+         <Option target="rightsfs"/>
+      </Unit>
+      <Unit filename="/home/data/projects/C++/rights-fs/src/rightsfs/FuseErrors.cpp">
+         <Option target="rightsfs"/>
+      </Unit>
+      <Unit filename="/home/data/projects/C++/rights-fs/src/rightsfs/FuseErrors.hpp">
+         <Option target="rightsfs"/>
+      </Unit>
+      <Unit filename="/home/data/projects/C++/rights-fs/src/rightsfs/RightsFS.cpp">
+         <Option target="rightsfs"/>
+      </Unit>
+      <Unit filename="/home/data/projects/C++/rights-fs/src/rightsfs/RightsFS.hpp">
+         <Option target="rightsfs"/>
+      </Unit>
+      <Unit filename="/home/data/projects/C++/rights-fs/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+      <Unit filename="/home/data/projects/C++/rights-fs/cmake/FindFUSE.cmake">
+          <Option virtualFolder="CMake Files\cmake\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>

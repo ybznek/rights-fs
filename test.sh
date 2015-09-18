@@ -1,7 +1,9 @@
 #!/bin/sh
-mkdir moje
-/home/data/projects/C++/zcache/build/zcachefs ./moje
-ls -la ./moje
-killall zcachefs
-
-rmdir ./moje
+dir=./moje
+mkdir $dir
+/home/data/projects/C++/rights-fs/build/rightsfs $dir
+ls -la $dir
+cat $dir/xfce-image-pkgs.txt 
+killall rightsfs
+umount $dir
+rmdir $dir

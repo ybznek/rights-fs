@@ -1,10 +1,10 @@
-project(zcachefs)
+project(rightsfs)
 set (CMAKE_CXX_STANDARD 11)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 cmake_minimum_required(VERSION 2.8)
 aux_source_directory(./src SRC_LIST)
-aux_source_directory(./src/zcachefs SRC_LIST)
-aux_source_directory(./src/zcachefs/common SRC_LIST)
+aux_source_directory(./src/rightsfs SRC_LIST)
+aux_source_directory(./src/rightsfs/common SRC_LIST)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 

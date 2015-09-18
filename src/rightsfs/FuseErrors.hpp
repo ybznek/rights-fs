@@ -1,7 +1,7 @@
 #ifndef FUSEERRORS_HPP
 #define FUSEERRORS_HPP
 #include <errno.h>
-namespace zcachefs {
+namespace rightsfs {
 class FuseErrors {
 public:
   enum {
