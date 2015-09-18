@@ -8,14 +8,17 @@ namespace zcachefs{
 class DirectoryIterator
 {
 public:
-    DirectoryIterator(const char* directory){
-        dir = opendir(directory);
+    DirectoryIterator(const char* directory):directory{directory}{
     }
 
+    bool open(){
+        dir = opendir(directory);
+    }
     ~DirectoryIterator(){
         closedir(dir);
     }
-    DIR* dir;
+    const char* directory;
+    DIR* dir= nullptr;
 };
 }
 
