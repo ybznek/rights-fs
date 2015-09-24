@@ -13,35 +13,58 @@ namespace rightsfs {
 using E = FuseErrors;
 
 ZCache::ZCache() {
+
   IMPL(read);
+  IMPL(write);
   IMPL(open);
+  IMPL(access);
+  IMPL(release);
   IMPL(readdir);
   IMPL(getattr);
+  IMPL(truncate);
+  IMPL(ftruncate);
 }
 
 int ZCache::read(const char *path, char *buf, size_t size, off_t offset,
                  fuse_file_info *fi) {
-    int fd;
-    int res;
-    (void) fi;
-    fd = open(path, O_RDONLY);
-    if (fd == -1)
-            return -errno;
-    res = pread(fd, buf, size, offset);
-    if (res == -1)
-            res = -errno;
-    close(fd);
-    return res;
+    int fd = fi->fh;
+    return ::pread(fd, buf, size, offset);
 }
 
 int ZCache::open(const char *path, fuse_file_info *fi) {
-    int res;
-    res = ::open(path, fi->flags);
-    if (res == -1)
-            return -errno;
-    close(res);
-    return 0;
+    int ret = ::open(path, fi->flags);
+    if (ret== -1)
+    {
+        return -1;
+    } else {
+            fi->fh = ret;
+            return 0;
+    }
 }
+
+int ZCache::release(const char *path, fuse_file_info *fi) {
+    return ::close(fi->fh);
+}
+
+int ZCache::access(const char *path, int amode){
+    return  -::access(path,amode);
+}
+
+int ZCache::write(const char *path, const char *buf, size_t size,
+       off_t offset, struct fuse_file_info *fi){
+    return ::pwrite(fi->fh,buf,size,offset);
+}
+
+
+int ZCache::truncate(const char *path, off_t size){
+    return ::truncate(path,size);
+}
+
+int ZCache::ftruncate(const char *path, off_t size, fuse_file_info *fi){
+        return ::ftruncate(fi->fh,size);
+}
+
+
 
 int ZCache::readdir(const char *path, void *buf, fuse_fill_dir_t filler,
                     off_t offset, fuse_file_info *fi) {
