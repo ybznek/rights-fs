@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include "FuseCtx.hpp"
+#include <stdlib.h>
 namespace rightsfs {
 class Fuse {
 public:

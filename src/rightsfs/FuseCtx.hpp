@@ -6,7 +6,6 @@ class Fuse;
 template <class CLS> class FuseCtx {
 public:
   inline FuseCtx(struct fuse_context *ctx) : ctx{ctx} {}
-  inline CLS *getFuse() { return static_cast<CLS *>(ctx->private_data); }
 
 protected:
   struct fuse_context *ctx = {};
