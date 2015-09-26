@@ -4,22 +4,18 @@
 #include "common/Mem.hpp"
 #include <string>
 namespace rightsfs {
-class SimpleStr {
-public:
-  SimpleStr(SimpleStr &&str) {
-    std::swap(this->cstr, str.cstr);
-    this->length = str.length;
-  }
 
+
+class SimpleStr {
+    friend class SimpleStrRef;
+public:
   SimpleStr(size_t len) : length{len} { cstr = new char[length]; }
 
   SimpleStr(const char *str, bool owned = true) : owned{owned} {
     if (!owned) {
-      this->cstr = const_cast<char *>(str);
+        cstr = const_cast<char *>(str);
     } else {
-      length = strlen(str);
-      cstr = new char[length];
-      Mem::cpy(this->cstr, str, length + 1);
+        copyStrIntoThis(str);
     }
   }
 
@@ -32,6 +28,7 @@ public:
   const char *to_cstr() const { return cstr; }
 
   char *raw() { return cstr; }
+
   size_t len() const { return length; }
 
   ~SimpleStr() {
@@ -43,9 +40,45 @@ public:
   SimpleStr() {}
 
 protected:
+  void copyStrIntoThis(const char* str){
+      length = strlen(str);
+      cstr = new char[length+1];
+      Mem::cpy(cstr, str, length + 1);
+  }
   char *cstr = nullptr;
   size_t length = 0;
   bool owned = true;
 };
+
+
+
+
+class SimpleStrRef{
+public:
+    SimpleStrRef(SimpleStr* str):str{str}{
+
+    }
+
+
+
+    operator SimpleStr*(){
+        return str;
+    }
+
+    operator const SimpleStr*()const{
+        return str;
+    }
+
+    bool operator<(const SimpleStrRef &ref) const{
+        return *str  < *(ref.str);
+    }
+protected:
+    SimpleStr* str;
+};
+
 }
+
+
+
+
 #endif // SIMPLESTR_HPP

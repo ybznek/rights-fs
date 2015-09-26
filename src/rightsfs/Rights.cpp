@@ -1,11 +1,12 @@
 #include "Rights.hpp"
 
 #include <sys/param.h>
-
 rightsfs::RightsInstance::RightsInstance(rightsfs::SimpleStr *key) : key{key} {
 
-  fd = ::open(key->to_cstr(), O_CREAT | O_RDWR);
-  printf("fd %s:%d\n", key->to_cstr(), fd);
+
+   fd = ::open(key->to_cstr(), O_CREAT | O_RDWR, 0666);
+  printf("rights fd %s:%d\n", key->to_cstr(), fd);
+
   while (true) {
     RightsOpt opt;
     if (!Mem::read<RightsOpt>(fd, &opt)) {
@@ -18,13 +19,14 @@ rightsfs::RightsInstance::RightsInstance(rightsfs::SimpleStr *key) : key{key} {
     if (size >= PATH_MAX) {
       break;
     }
-    SimpleStr *str = new SimpleStr{size};
+    SimpleStr *str = new SimpleStr{size+1};
     if (!Str::read(fd, str->raw(), size)) {
       break;
     }
 
-    opts.emplace(std::pair<SimpleStr *, RightsOpt>(str, opt));
+    opts.insert(std::pair<SimpleStrRef, RightsOpt>(str, opt));
   }
+  printf("loaded\n");
 }
 
 void rightsfs::RightsInstance::sync() {
@@ -52,20 +54,24 @@ rightsfs::RightsInstance::~RightsInstance() {
 }
 
 rightsfs::Rights::Rights() {
-  static_assert(sizeof(RightsOpt) == 3 * 4, "Should use 32bit rights");
+  static_assert(sizeof(RightsOpt) == (3 * 4 + 3 +1), "Should use 32bit rights structures");
 }
 
-rightsfs::RightsInstance &
+rightsfs::RightsInstance *
 rightsfs::Rights::getInstance(const char *rightsPath) {
+    std::lock_guard<std::mutex> g(rightsMutex);
+    printf("rightsPath: %s\n",rightsPath);
   SimpleStr s{rightsPath, false};
-  try {
-    return *(rights[&s]);
-  } catch (std::out_of_range &) {
-    SimpleStr *key = new SimpleStr{rightsPath};
-    RightsInstance *ins = new RightsInstance{key};
-    rights.emplace(std::pair<SimpleStr *, RightsInstance *>(key, ins));
-    return *ins;
-  }
+        auto it= rights.find(&s);
+
+      if (it == rights.end()){
+          SimpleStr *key = new SimpleStr{rightsPath};
+          RightsInstance *ins = new RightsInstance{key};
+          rights.insert(std::pair<SimpleStrRef, RightsInstance *>(key, ins));
+          return ins;
+      }else{
+                return it->second;
+      }
 }
 
 void rightsfs::Rights::sync() {

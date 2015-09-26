@@ -9,13 +9,21 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <vector>
+#include <sys/stat.h>
+#include <mutex>
 using namespace std;
 namespace rightsfs {
 
 struct RightsOpt {
-  uid_t uid;
-  gid_t gid;
-  mode_t mode;
+  uid_t uid =0;
+  gid_t gid =0;
+  mode_t mode =0;
+
+  bool _align;
+
+  bool uid_valid = false;
+  bool gid_valid = false;
+  bool mode_valid = false;
 };
 
 #if __BYTE_ORDER != __LITTLE_ENDIAN
@@ -26,19 +34,35 @@ class RightsInstance {
 public:
   RightsInstance(SimpleStr *key);
 
+  struct stat getFinalRights(const char* filename, const struct stat& originalStats){
+        struct stat finalStats=originalStats;
+        SimpleStr s{filename, false};
+        RightsOpt& opt= opts[&s];
+        if (opt.gid_valid){
+            finalStats.st_gid = opt.gid;
+        }
+        if (opt.uid_valid){
+            finalStats.st_uid = opt.uid;
+        }
+        if (opt.mode_valid){
+            finalStats.st_mode = opt.mode;
+        }
+        return finalStats;
+  }
+
+
   void chmod(const char *filename, mode_t mode) {
     SimpleStr s{filename, false};
-    try {
-      printf("aa\n");
-      opts[&s].gid = mode;
-      printf("uz je\n");
-    } catch (std::out_of_range &) {
-      printf("novy\n");
-      RightsOpt opt{};
-      opt.mode = mode;
-      opts.insert(
-          std::pair<SimpleStr *, RightsOpt>(new SimpleStr{filename}, opt));
+    auto it =opts.find(&s);
+    if(it == opts.end()){
+        SimpleStr* str = new SimpleStr{filename};
+        RightsOpt opt;
+
+        opts.insert(std::pair<SimpleStrRef,RightsOpt>(str,opt));
     }
+    RightsOpt& item= opts[&s];
+    item.gid = mode;
+    item.gid_valid = true;
     dirty = true;
     sync();
   }
@@ -46,7 +70,7 @@ public:
   ~RightsInstance();
 
 protected:
-  map<SimpleStr *, RightsOpt> opts;
+  map<SimpleStrRef, RightsOpt> opts;
   bool dirty = false;
   SimpleStr *key;
   int fd;
@@ -55,11 +79,12 @@ protected:
 class Rights {
 public:
   Rights();
-  RightsInstance &getInstance(const char *rightsPath);
+  RightsInstance *getInstance(const char *rightsPath);
   void sync();
 
 protected:
-  map<SimpleStr *, RightsInstance *> rights;
+  map<SimpleStrRef, RightsInstance *> rights;
+  std::mutex rightsMutex;
 };
 }
 #endif // RIGHTS_HPP

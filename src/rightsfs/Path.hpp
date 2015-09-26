@@ -18,7 +18,7 @@ public:
 
     inline void getRightsPath(const char *rightsFilename, char *dst) {
       // todo check file
-      Mem::cpy(dst, path, index - 1);
+      Mem::cpy(dst, path, index);
       Str::cpy(&(dst[index]), rightsFilename);
     }
 

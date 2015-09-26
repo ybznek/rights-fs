@@ -40,7 +40,7 @@ public:
 
   static int getattr(const char *path, struct stat *stbuf);
 
-  RightsInstance &getRights(Path::PathPair &pair);
+  RightsInstance *getRights(Path::PathPair &pair);
 
 protected:
   Rights rights;

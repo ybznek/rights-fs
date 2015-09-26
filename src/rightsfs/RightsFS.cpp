@@ -89,8 +89,8 @@ int RightsFS::ftruncate(const char *path, off_t size, fuse_file_info *fi) {
 int RightsFS::chmod(const char *path, mode_t mode) {
   printf("chmod called\n");
   Path::PathPair pair = fs.path.getRealPathPair(path);
-  RightsInstance &ins = fs.getRights(pair);
-  ins.chmod(pair.getFilename(), mode);
+  RightsInstance *ins = fs.getRights(pair);
+  ins->chmod(pair.getFilename(), mode);
   return 0;
 }
 
@@ -118,14 +118,15 @@ int RightsFS::getattr(const char *path, struct stat *stbuf) {
     return E::NOENT;
   }
 
+  RightsInstance* ins = fs.getRights(pair);
   pair.getRightsPath(fs.rightsFilename, fs.rightFsPath);
-  RightsInstance &r = fs.rights.getInstance(fs.rightFsPath);
+//  RightsInstance *r = fs.rights.getInstance(fs.rightFsPath);
   FileStat stat{pair.getPath()};
-  *stbuf = *stat;
+  *stbuf = ins->getFinalRights(pair.getFilename(),*stat);
   return stat;
 }
 
-RightsInstance &RightsFS::getRights(Path::PathPair &pair) {
+RightsInstance *RightsFS::getRights(Path::PathPair &pair) {
   pair.getRightsPath(rightsFilename, rightFsPath);
   return rights.getInstance(rightFsPath);
 }

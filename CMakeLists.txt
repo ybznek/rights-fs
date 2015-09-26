@@ -6,6 +6,8 @@ aux_source_directory(./src SRC_LIST)
 aux_source_directory(./src/rightsfs SRC_LIST)
 aux_source_directory(./src/rightsfs/common SRC_LIST)
 
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -g")
+
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 
  find_package(FUSE 2.8 REQUIRED)
