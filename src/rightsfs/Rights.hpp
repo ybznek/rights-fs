@@ -37,14 +37,23 @@ public:
   struct stat getFinalRights(const char* filename, const struct stat& originalStats){
         struct stat finalStats=originalStats;
         SimpleStr s{filename, false};
-        RightsOpt& opt= opts[&s];
+        auto it = opts.find(&s);
+        if (it == opts.end()){
+            printf("nemicham \n");
+           return finalStats;
+        }
+        printf("micham\n");
+        RightsOpt& opt= it->second;
         if (opt.gid_valid){
+            printf("gid\n");
             finalStats.st_gid = opt.gid;
         }
         if (opt.uid_valid){
+            printf("uid\n");
             finalStats.st_uid = opt.uid;
         }
         if (opt.mode_valid){
+            printf("mode\n");
             finalStats.st_mode = opt.mode;
         }
         return finalStats;
@@ -52,17 +61,10 @@ public:
 
 
   void chmod(const char *filename, mode_t mode) {
-    SimpleStr s{filename, false};
-    auto it =opts.find(&s);
-    if(it == opts.end()){
-        SimpleStr* str = new SimpleStr{filename};
-        RightsOpt opt;
-
-        opts.insert(std::pair<SimpleStrRef,RightsOpt>(str,opt));
-    }
-    RightsOpt& item= opts[&s];
-    item.gid = mode;
-    item.gid_valid = true;
+    SimpleStr* str= new SimpleStr{filename};
+    RightsOpt& item= opts[str];
+    item.mode = mode;
+    item.mode_valid = true;
     dirty = true;
     sync();
   }
